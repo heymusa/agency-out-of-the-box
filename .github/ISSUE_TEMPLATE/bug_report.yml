@@ -1,0 +1,69 @@
+name: 🐛 Bug report
+description: Something is broken in a skill, agent, command, or the QA gate.
+title: "bug: "
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file this. Concrete > vague — please paste the actual command and the actual output.
+
+  - type: input
+    id: command
+    attributes:
+      label: Command you ran
+      placeholder: "/build-agency-site --pages=homepage,pricing"
+    validations:
+      required: true
+
+  - type: input
+    id: agent
+    attributes:
+      label: Agent or skill that misbehaved
+      placeholder: "design-builder, conversion-copywriter, qa-reviewer, ..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      placeholder: "Should have produced output/agency-site/src/pages/index.astro with real copy"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened
+      placeholder: "Hung at step 4. No output written. Console showed: ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: context-file
+    attributes:
+      label: Relevant `agency-context.md` excerpt
+      description: Sections involved in the failure (redact business-sensitive details).
+      render: markdown
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      placeholder: |
+        - Claude Code version:
+        - OS:
+        - Node version:
+        - Plugin install path: (cloned | /plugin install)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: doctrine
+    attributes:
+      label: Doctrine checklist
+      options:
+        - label: I ran `./hooks/scan-forbidden-tokens.sh` and it passed.
+        - label: My `agency-context.md` has the sections this command requires (see CLAUDE.md).
+        - label: This isn't a known limitation listed in `PLAN.md` §1 (Non-Goals).

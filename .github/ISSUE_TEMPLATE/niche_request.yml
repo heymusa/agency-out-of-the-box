@@ -1,0 +1,48 @@
+name: 🏷️ Industry overlay request
+description: Propose a new `industries/{niche}/` overlay.
+title: "niche: "
+labels: [industry-overlay, triage]
+body:
+  - type: input
+    id: niche
+    attributes:
+      label: Niche slug
+      placeholder: "med-spa, hvac-residential, immigration-law, ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: operator-profile
+    attributes:
+      label: Who's the typical operator running this play?
+      placeholder: "Background, network warmth, capital, geography."
+    validations:
+      required: true
+
+  - type: textarea
+    id: pains
+    attributes:
+      label: Top 3 verbatim pain quotes from real customers
+      description: Exact phrases — not paraphrase.
+    validations:
+      required: true
+
+  - type: textarea
+    id: pricing
+    attributes:
+      label: Typical price-point for the agency's service
+      placeholder: "$2k–8k/mo retainer, $500–2k entry audit, ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: compliance
+    attributes:
+      label: Regulatory constraints
+      placeholder: "HIPAA, ABA advertising rules, FTC endorsement, ..."
+
+  - type: textarea
+    id: proof
+    attributes:
+      label: What proof does this niche respect?
+      placeholder: "Case study format, testimonial style, credential signals."

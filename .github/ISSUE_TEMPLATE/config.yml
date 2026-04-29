@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Questions and Discussion
+    url: https://github.com/heymusa/agency-out-of-the-box/discussions
+    about: For open-ended questions, use cases, or "is this the right tool for me?".
+  - name: 📖 Documentation
+    url: https://github.com/heymusa/agency-out-of-the-box#readme
+    about: Quickstart, architecture overview, and the no-AI-slop doctrine.
+  - name: 🧠 Master plan
+    url: https://github.com/heymusa/agency-out-of-the-box/blob/main/PLAN.md
+    about: Architecture deep-dive — read before proposing structural changes.

@@ -1,0 +1,51 @@
+name: 💡 Feature request
+description: Propose a new skill, agent, command, or doctrine change.
+title: "feat: "
+labels: [enhancement, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Read this first:** the repo intentionally caps at 11 skills, 5 agents, 6 commands. New ideas usually belong inside an existing piece — or in a sibling plugin (see `marketingskills`). Convince us this earns its slot.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you solving?
+      placeholder: "When I run /new-landing-page for a quiz funnel, the scaffold doesn't include progress-bar logic."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      placeholder: "Add a `quiz-funnel` skill that ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Could this live inside an existing skill? In a sibling plugin?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope guard
+      description: How would this skill avoid scope creep? What's explicitly out-of-scope?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: nongoals
+    attributes:
+      label: Non-goals check
+      options:
+        - label: This is not a SaaS PMM skill (those go in `marketingskills`).
+        - label: This is not a drag-and-drop UI builder.
+        - label: This is not a second design system.
+        - label: This does not require nested subagent orchestration.
