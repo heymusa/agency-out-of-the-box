@@ -1,0 +1,86 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.toString(),
+  ogImage = '/og-default.png',
+  noIndex = false,
+} = Astro.props as Props;
+
+// Resolve site origin for absolute OG URLs
+const siteOrigin = Astro.site?.toString().replace(/\/$/, '') || 'https://example.com';
+const absoluteOg = ogImage.startsWith('http') ? ogImage : `${siteOrigin}${ogImage}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noIndex && <meta name="robots" content="noindex,nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteOg} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOg} />
+
+    <!-- Fonts: preconnect + preload critical -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Plausible analytics (default privacy-first). Replace data-domain when agency-context §13 is set. -->
+    <script defer data-domain="example.com" src="https://plausible.io/js/script.tagged-events.js"></script>
+  </head>
+  <body class="font-sans bg-white text-neutral-900 antialiased">
+    <slot />
+
+    <!-- Wire data-tracking-id on any anchor / button for cta_clicked events -->
+    <script>
+      document.addEventListener('click', (e) => {
+        const target = (e.target as HTMLElement).closest('[data-tracking-id]');
+        if (!target) return;
+        const id = target.getAttribute('data-tracking-id');
+        const label = target.textContent?.trim() ?? '';
+        const dest = target.getAttribute('href') ?? '';
+        if (typeof (window as any).plausible === 'function') {
+          (window as any).plausible('cta_clicked', {
+            props: { cta_id: id, cta_label: label, cta_destination: dest },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* Base resets in addition to Tailwind's preflight */
+  html { scroll-behavior: smooth; }
+  body { min-height: 100vh; }
+  :focus-visible { outline-offset: 2px; }
+</style>

@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '@design-system/blocks/Hero.astro';
+import SocialProof from '@design-system/blocks/SocialProof.astro';
+import ProblemBlock from '@design-system/blocks/ProblemBlock.astro';
+import PlanBlock from '@design-system/blocks/PlanBlock.astro';
+import FeatureGrid from '@design-system/blocks/FeatureGrid.astro';
+import Pricing from '@design-system/blocks/Pricing.astro';
+import FAQ from '@design-system/blocks/FAQ.astro';
+import CTABanner from '@design-system/blocks/CTABanner.astro';
+import Footer from '@design-system/blocks/Footer.astro';
+
+/**
+ * Reference homepage scaffold. The /build-agency-site command replaces this with
+ * the operator-specific composition based on agency-context.md.
+ *
+ * Every block here uses the `<!-- TODO: ... DO NOT SHIP -->` marker so the QA
+ * gate refuses to deploy this scaffold as-is. Operators run /build-agency-site
+ * to generate real content first.
+ */
+---
+
+<Layout
+  title="Agency Out of the Box — Reference Homepage Scaffold"
+  description="Reference scaffold. Run /build-agency-site to replace with your real content."
+  noIndex={true}
+>
+  <Hero
+    variant="split"
+    headline="<!-- TODO: replace with REAL outcome-formula headline — DO NOT SHIP -->"
+    subheadline="<!-- TODO: replace with REAL specific subheadline — DO NOT SHIP -->"
+    primaryCta={{ label: 'TODO: Real CTA copy', href: '/contact', trackingId: 'hero-primary' }}
+    secondaryCta={{ label: 'TODO: Transitional CTA', href: '#how-it-works', trackingId: 'hero-secondary' }}
+    image={{ src: '/images/hero-placeholder.svg', alt: 'TODO: replace with real founder/process image — DO NOT SHIP' }}
+    trustBar={{
+      label: 'TODO: replace with real trust micro-bar',
+      items: ['TODO metric 1', 'TODO metric 2', 'TODO metric 3'],
+      itemType: 'metric',
+    }}
+  />
+
+  <SocialProof
+    variant="metrics"
+    metrics={[
+      { value: 'TODO', label: 'TODO: real metric label' },
+      { value: 'TODO', label: 'TODO: real metric label' },
+      { value: 'TODO', label: 'TODO: real metric label' },
+    ]}
+  />
+
+  <ProblemBlock
+    heading="The problem we solve"
+    external="<!-- TODO: external problem (1 sentence) — DO NOT SHIP -->"
+    internal="<!-- TODO: internal problem (1 sentence) — DO NOT SHIP -->"
+    philosophical="<!-- TODO: philosophical problem (1 sentence) — DO NOT SHIP -->"
+  />
+
+  <PlanBlock
+    heading="How we work together"
+    subheading="TODO: real subheading"
+    steps={[
+      { number: 1, title: 'TODO Step 1', body: 'TODO body', timeframe: 'TODO Day 1-7' },
+      { number: 2, title: 'TODO Step 2', body: 'TODO body', timeframe: 'TODO Week 2' },
+      { number: 3, title: 'TODO Step 3', body: 'TODO body', timeframe: 'TODO Month 2' },
+      { number: 4, title: 'TODO Step 4', body: 'TODO body', timeframe: 'TODO Month 4-6' },
+    ]}
+  />
+
+  <FeatureGrid
+    variant="cards-3up"
+    heading="TODO: real services heading"
+    subheading="TODO: real subheading"
+    features={[
+      { icon: '◆', heading: 'TODO Service 1', body: 'TODO: FAB-format body' },
+      { icon: '◆', heading: 'TODO Service 2', body: 'TODO: FAB-format body' },
+      { icon: '◆', heading: 'TODO Service 3', body: 'TODO: FAB-format body' },
+    ]}
+  />
+
+  <CTABanner
+    heading="TODO: pre-pricing CTA heading"
+    body="TODO: real body"
+    primaryCta={{ label: 'TODO: real CTA', href: '/contact', trackingId: 'mid-page-cta' }}
+    variant="solid-brand"
+  />
+
+  <Pricing
+    variant="single-card"
+    heading="Investment"
+    subheading="TODO: real pricing subhead"
+    tiers={[
+      {
+        name: 'TODO Tier Name',
+        price: 'TODO: $X,XXX/mo',
+        setup: 'TODO: + $X,XXX one-time setup',
+        description: 'TODO: tier description',
+        features: ['TODO feature 1', 'TODO feature 2', 'TODO feature 3'],
+        bonuses: [
+          { label: 'TODO Bonus 1', anchorValue: '$TODO' },
+          { label: 'TODO Bonus 2', anchorValue: '$TODO' },
+          { label: 'TODO Bonus 3', anchorValue: '$TODO' },
+        ],
+        cta: { label: 'TODO: real CTA', href: '/contact', trackingId: 'pricing-primary' },
+      },
+    ]}
+    guarantee={{
+      label: 'TODO: guarantee headline',
+      body: '<!-- TODO: guarantee body — DO NOT SHIP -->',
+    }}
+  />
+
+  <FAQ
+    heading="Common questions"
+    items={[
+      { question: 'TODO question 1?', answer: 'TODO: real answer.' },
+      { question: 'TODO question 2?', answer: 'TODO: real answer.' },
+      { question: 'TODO question 3?', answer: 'TODO: real answer.' },
+      { question: 'TODO question 4?', answer: 'TODO: real answer.' },
+      { question: 'TODO question 5?', answer: 'TODO: real answer.' },
+      { question: 'TODO question 6?', answer: 'TODO: real answer.' },
+    ]}
+  />
+
+  <CTABanner
+    heading="TODO: final CTA heading"
+    body="TODO: final CTA body"
+    primaryCta={{ label: 'TODO: real CTA', href: '/contact', trackingId: 'final-cta' }}
+    secondaryCta={{ label: 'TODO: transitional CTA', href: '/case-studies', trackingId: 'final-secondary' }}
+  />
+
+  <Footer
+    org={{
+      name: 'TODO: agency name',
+      tagline: 'TODO: 10-12 word tagline',
+      email: 'TODO@example.com',
+    }}
+    sitemap={[
+      {
+        heading: 'Services',
+        links: [
+          { label: 'TODO Service 1', href: '/services/todo-1' },
+          { label: 'TODO Service 2', href: '/services/todo-2' },
+        ],
+      },
+      {
+        heading: 'Company',
+        links: [
+          { label: 'About', href: '/about' },
+          { label: 'Case studies', href: '/case-studies' },
+          { label: 'Pricing', href: '/pricing' },
+          { label: 'Contact', href: '/contact' },
+        ],
+      },
+    ]}
+    legal={{
+      links: [
+        { label: 'Privacy', href: '/privacy' },
+        { label: 'Terms', href: '/terms' },
+      ],
+    }}
+  />
+</Layout>
