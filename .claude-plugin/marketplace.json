@@ -1,13 +1,11 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "agency-out-of-the-box",
   "owner": {
     "name": "heymusa",
-    "email": "mussayyab201@gmail.com",
     "url": "https://github.com/heymusa"
   },
   "metadata": {
-    "description": "Claude-native toolkit to run a service-business agency end-to-end: pick a niche, stand up the agency site, generate landing pages and funnels, deliver client sites, ship them. Without AI slop.",
+    "description": "Claude-native toolkit to run a service-business agency end-to-end. Pick a niche, stand up the agency site, generate landing pages and funnels, deliver client sites, ship them. Without AI slop.",
     "version": "0.1.0",
     "repository": "https://github.com/heymusa/agency-out-of-the-box"
   },
@@ -17,7 +15,6 @@
       "description": "End-to-end service-agency toolkit. Six commands, eleven skills, five specialist agents, four industry overlays, anti-AI-slop QA gate that blocks deploys with lorem ipsum, fabricated testimonials, or buzzword headlines.",
       "source": "./",
       "strict": false,
-      "category": "productivity",
       "skills": [
         "./skills/agency-context",
         "./skills/niche-research",
