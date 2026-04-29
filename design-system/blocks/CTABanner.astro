@@ -1,0 +1,72 @@
+---
+/**
+ * CTABanner — full-width call-to-action band.
+ * Used between sections and as the final CTA before the footer.
+ */
+
+interface Cta {
+  label: string;
+  href: string;
+  trackingId?: string;
+}
+
+interface Props {
+  heading: string;
+  body?: string;
+  primaryCta: Cta;
+  secondaryCta?: Cta;
+  variant?: 'solid-brand' | 'subtle' | 'inverse';
+}
+
+const { heading, body, primaryCta, secondaryCta, variant = 'solid-brand' } = Astro.props as Props;
+
+const variantClasses = {
+  'solid-brand': 'bg-brand-600 text-white',
+  'subtle': 'bg-neutral-50 text-neutral-900',
+  'inverse': 'bg-neutral-900 text-white',
+};
+
+const headingColor = variant === 'subtle' ? 'text-neutral-900' : 'text-white';
+const bodyColor = variant === 'subtle' ? 'text-neutral-600' : variant === 'inverse' ? 'text-neutral-300' : 'text-brand-50';
+const primaryBtn = variant === 'solid-brand'
+  ? 'bg-white hover:bg-neutral-100 text-brand-700'
+  : variant === 'inverse'
+  ? 'bg-brand-600 hover:bg-brand-700 text-white'
+  : 'bg-brand-600 hover:bg-brand-700 text-white';
+const secondaryBtn = variant === 'solid-brand'
+  ? 'border-2 border-white/40 hover:border-white text-white'
+  : variant === 'inverse'
+  ? 'border-2 border-neutral-700 hover:border-neutral-500 text-white'
+  : 'border-2 border-neutral-300 hover:border-neutral-400 text-neutral-700';
+---
+
+<section class={`w-full ${variantClasses[variant]}`}>
+  <div class="mx-auto max-w-5xl px-6 lg:px-8 py-20 lg:py-24 text-center">
+    <h2 class={`text-4xl lg:text-5xl font-extrabold tracking-tight ${headingColor}`}>
+      {heading}
+    </h2>
+    {body && (
+      <p class={`mt-6 text-lg leading-relaxed max-w-2xl mx-auto ${bodyColor}`}>
+        {body}
+      </p>
+    )}
+    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href={primaryCta.href}
+        data-tracking-id={primaryCta.trackingId}
+        class={`inline-flex items-center justify-center rounded-lg ${primaryBtn} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-600 px-8 py-4 text-base font-semibold transition-colors`}
+      >
+        {primaryCta.label}
+      </a>
+      {secondaryCta && (
+        <a
+          href={secondaryCta.href}
+          data-tracking-id={secondaryCta.trackingId}
+          class={`inline-flex items-center justify-center rounded-lg ${secondaryBtn} px-8 py-4 text-base font-semibold transition-colors`}
+        >
+          {secondaryCta.label}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

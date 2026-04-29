@@ -1,0 +1,144 @@
+---
+/**
+ * Pricing — two variants
+ * - compare-3: 3-tier comparison with "Recommended" badge
+ * - single-card: single tier with full bonus stack and guarantee
+ *
+ * Pulled from agency-context.md §6 (Grand-Slam Offer) and §7 (Service Tier Ladder).
+ */
+
+interface Bonus {
+  label: string;
+  anchorValue: string; // formatted like "$1,500"
+}
+
+interface Tier {
+  name: string;
+  price: string;
+  setup?: string;
+  description: string;
+  features: string[];
+  bonuses?: Bonus[];
+  cta: { label: string; href: string; trackingId?: string };
+  recommended?: boolean;
+}
+
+interface Guarantee {
+  label: string;
+  body: string;
+}
+
+interface Props {
+  variant: 'compare-3' | 'single-card';
+  heading: string;
+  subheading?: string;
+  guarantee?: Guarantee;
+  tiers: Tier[];
+}
+
+const { variant, heading, subheading, guarantee, tiers } = Astro.props as Props;
+---
+
+<section class="w-full bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 lg:py-32">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900">{heading}</h2>
+      {subheading && (
+        <p class="mt-6 text-lg text-neutral-600 leading-relaxed">{subheading}</p>
+      )}
+    </div>
+
+    {variant === 'compare-3' && (
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {tiers.map((tier) => (
+          <article class={`relative rounded-2xl bg-white p-8 ${tier.recommended ? 'border-2 border-brand-600 shadow-xl lg:scale-105' : 'border border-neutral-200'}`}>
+            {tier.recommended && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-600 text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                Recommended
+              </span>
+            )}
+            <h3 class="text-xl font-bold text-neutral-900">{tier.name}</h3>
+            <p class="mt-2 text-sm text-neutral-600">{tier.description}</p>
+            <p class="mt-6 text-4xl font-extrabold text-neutral-900">{tier.price}</p>
+            {tier.setup && (
+              <p class="mt-1 text-sm text-neutral-500">{tier.setup}</p>
+            )}
+            <a
+              href={tier.cta.href}
+              data-tracking-id={tier.cta.trackingId}
+              class={`mt-8 block text-center rounded-lg px-6 py-3 text-base font-semibold transition-colors ${tier.recommended ? 'bg-brand-600 hover:bg-brand-700 text-white' : 'border border-neutral-300 hover:border-neutral-400 text-neutral-700 hover:bg-neutral-50'}`}
+            >
+              {tier.cta.label}
+            </a>
+            <ul class="mt-8 space-y-3 text-sm text-neutral-700">
+              {tier.features.map((f) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-brand-600 font-bold">✓</span>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    )}
+
+    {variant === 'single-card' && tiers[0] && (
+      <article class="max-w-3xl mx-auto rounded-2xl bg-white border border-neutral-200 p-8 lg:p-12 shadow-lg">
+        <h3 class="text-2xl font-bold text-neutral-900">{tiers[0].name}</h3>
+        <p class="mt-2 text-base text-neutral-600">{tiers[0].description}</p>
+
+        <div class="mt-8">
+          <p class="text-5xl font-extrabold text-neutral-900">{tiers[0].price}</p>
+          {tiers[0].setup && (
+            <p class="mt-1 text-base text-neutral-500">{tiers[0].setup}</p>
+          )}
+        </div>
+
+        <div class="mt-10">
+          <h4 class="text-base font-bold text-neutral-900 uppercase tracking-wider">What's included</h4>
+          <ul class="mt-4 space-y-3 text-base text-neutral-700">
+            {tiers[0].features.map((f) => (
+              <li class="flex items-start gap-3">
+                <span class="text-brand-600 font-bold mt-1">✓</span>
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {tiers[0].bonuses && tiers[0].bonuses.length > 0 && (
+          <div class="mt-10 rounded-xl bg-brand-50 border border-brand-200 p-6">
+            <h4 class="text-base font-bold text-brand-900 uppercase tracking-wider">Bonuses included</h4>
+            <ul class="mt-4 space-y-2 text-base text-neutral-800">
+              {tiers[0].bonuses.map((b) => (
+                <li class="flex items-start gap-3">
+                  <span class="text-brand-700 font-bold mt-1">+</span>
+                  <span>
+                    <strong>{b.label}</strong>
+                    <span class="text-neutral-600"> — worth {b.anchorValue}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {guarantee && (
+          <div class="mt-10 rounded-xl bg-success-100 border border-success-500/20 p-6">
+            <h4 class="text-base font-bold text-success-600 uppercase tracking-wider">{guarantee.label}</h4>
+            <p class="mt-3 text-base text-neutral-800 leading-relaxed">{guarantee.body}</p>
+          </div>
+        )}
+
+        <a
+          href={tiers[0].cta.href}
+          data-tracking-id={tiers[0].cta.trackingId}
+          class="mt-10 block text-center rounded-lg bg-brand-600 hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold text-white transition-colors"
+        >
+          {tiers[0].cta.label}
+        </a>
+      </article>
+    )}
+  </div>
+</section>

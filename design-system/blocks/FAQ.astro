@@ -1,0 +1,61 @@
+---
+/**
+ * FAQ — accordion with built-in JSON-LD FAQPage schema.
+ * 6-10 items recommended. Real questions; not "what is X" filler.
+ */
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  heading: string;
+  items: FaqItem[];
+}
+
+const { heading, items } = Astro.props as Props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<section class="w-full">
+  <div class="mx-auto max-w-3xl px-6 lg:px-8 py-24 lg:py-32">
+    <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 text-center">
+      {heading}
+    </h2>
+
+    <div class="mt-16 space-y-4">
+      {items.map((item) => (
+        <details class="group rounded-xl border border-neutral-200 bg-white p-6 hover:border-neutral-300 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <h3 class="text-lg font-semibold text-neutral-900 pr-8">{item.question}</h3>
+            <svg
+              class="w-5 h-5 text-neutral-400 group-open:rotate-180 transition-transform shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <p class="mt-4 text-base text-neutral-700 leading-relaxed">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

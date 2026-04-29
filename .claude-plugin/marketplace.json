@@ -1,0 +1,63 @@
+{
+  "name": "agency-out-of-the-box",
+  "displayName": "Agency-Out-of-the-Box",
+  "description": "Claude-native toolkit to run a service-business agency end-to-end: pick a niche, stand up the agency site, generate landing pages and funnels, deliver client sites, ship them. Without AI slop.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Musa",
+    "email": "mussayyab201@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/musayyab/agency-out-of-the-box"
+  },
+  "keywords": [
+    "agency",
+    "service-business",
+    "landing-page",
+    "funnel",
+    "conversion",
+    "storybrand",
+    "hormozi",
+    "astro",
+    "nextjs",
+    "skills"
+  ],
+  "plugins": [
+    {
+      "name": "agency-out-of-the-box",
+      "displayName": "Agency-Out-of-the-Box",
+      "description": "End-to-end agency operations toolkit. 6 commands, 5 specialist agents, 11 skills.",
+      "version": "0.1.0",
+      "skills": [
+        "agency-context",
+        "niche-research",
+        "offer-design",
+        "storybrand-page",
+        "landing-page-funnel",
+        "seo-page",
+        "design-system",
+        "component-library",
+        "copy-frameworks",
+        "analytics-wiring",
+        "ship-checklist"
+      ],
+      "agents": [
+        "industry-strategist",
+        "conversion-copywriter",
+        "design-builder",
+        "seo-strategist",
+        "qa-reviewer"
+      ],
+      "commands": [
+        "pick-niche",
+        "build-agency-site",
+        "new-landing-page",
+        "new-funnel",
+        "new-client-site",
+        "ship-it"
+      ]
+    }
+  ]
+}

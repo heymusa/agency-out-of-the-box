@@ -1,0 +1,62 @@
+{
+  "_comment": "Settings template for agency-out-of-the-box. Merge into your project's .claude/settings.json (or .claude/settings.local.json for personal-only). The hooks block wires the forbidden-token scanner. The mcpServers block enables Playwright (for qa-reviewer screenshots + Lighthouse) and Context7 (for live framework docs).",
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(./**)",
+      "Write(./**)",
+      "Edit(./**)",
+      "Glob(./**)",
+      "Grep(./**)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git worktree:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npx astro:*)",
+      "Bash(npx next:*)",
+      "Bash(npx shadcn:*)",
+      "Bash(npx playwright:*)",
+      "Bash(./hooks/scan-forbidden-tokens.sh:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(curl:*pipe*sh*)",
+      "Write(./.env*)",
+      "Write(./node_modules/**)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/scan-forbidden-tokens.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  }
+}

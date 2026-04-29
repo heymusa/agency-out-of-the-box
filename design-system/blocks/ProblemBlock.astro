@@ -1,0 +1,31 @@
+---
+/**
+ * ProblemBlock — StoryBrand 3-layer problem articulation.
+ * external (what they see), internal (how they feel), philosophical (why it shouldn't be).
+ * Compressed: 3-4 sentences total, not three paragraphs.
+ */
+
+interface Props {
+  heading?: string;
+  external: string;
+  internal: string;
+  philosophical: string;
+}
+
+const { heading, external, internal, philosophical } = Astro.props as Props;
+---
+
+<section class="w-full">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8 py-20 lg:py-24">
+    {heading && (
+      <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-neutral-900 text-center">
+        {heading}
+      </h2>
+    )}
+    <div class="mt-10 lg:mt-12 space-y-6 text-lg lg:text-xl text-neutral-700 leading-relaxed">
+      <p>{external}</p>
+      <p>{internal}</p>
+      <p class="italic text-neutral-600">{philosophical}</p>
+    </div>
+  </div>
+</section>

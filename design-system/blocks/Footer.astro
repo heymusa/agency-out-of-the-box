@@ -1,0 +1,98 @@
+---
+/**
+ * Footer — full footer with sitemap, legal, social, address.
+ * Pulls org details from agency-context.md §1 + §13 + §12.
+ */
+
+interface SocialLink {
+  platform: 'linkedin' | 'twitter' | 'instagram' | 'youtube' | 'facebook';
+  href: string;
+}
+
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface SitemapColumn {
+  heading: string;
+  links: Link[];
+}
+
+interface Props {
+  org: {
+    name: string;
+    address?: string;
+    phone?: string;
+    email?: string;
+    tagline?: string;
+  };
+  sitemap: SitemapColumn[];
+  social?: SocialLink[];
+  legal: { links: Link[] };
+}
+
+const { org, sitemap, social, legal } = Astro.props as Props;
+const year = new Date().getFullYear();
+---
+
+<footer class="w-full bg-neutral-900 text-neutral-300">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+      <div class="col-span-2">
+        <p class="text-2xl font-extrabold text-white tracking-tight">{org.name}</p>
+        {org.tagline && (
+          <p class="mt-3 text-sm leading-relaxed max-w-xs">{org.tagline}</p>
+        )}
+
+        {(org.address || org.phone || org.email) && (
+          <address class="mt-6 not-italic space-y-2 text-sm">
+            {org.address && <p>{org.address}</p>}
+            {org.phone && <p><a href={`tel:${org.phone.replace(/[^\d+]/g, '')}`} class="hover:text-white">{org.phone}</a></p>}
+            {org.email && <p><a href={`mailto:${org.email}`} class="hover:text-white">{org.email}</a></p>}
+          </address>
+        )}
+
+        {social && social.length > 0 && (
+          <div class="mt-6 flex gap-4">
+            {social.map((s) => (
+              <a
+                href={s.href}
+                aria-label={`${org.name} on ${s.platform}`}
+                class="text-neutral-400 hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="text-sm capitalize">{s.platform}</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {sitemap.map((col) => (
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">{col.heading}</h3>
+          <ul class="mt-4 space-y-3 text-sm">
+            {col.links.map((link) => (
+              <li>
+                <a href={link.href} class="hover:text-white transition-colors">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+      <p class="text-sm text-neutral-500">© {year} {org.name}. All rights reserved.</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        {legal.links.map((link) => (
+          <li>
+            <a href={link.href} class="text-neutral-400 hover:text-white transition-colors">{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>

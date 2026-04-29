@@ -1,0 +1,198 @@
+---
+/**
+ * Hero — three variants
+ * - centered: single-column, headline + subheadline + CTA stack, optional image below
+ * - split: 50/50, content left, image/video right
+ * - asymmetric: 60/40 with colored accent panel behind the image
+ *
+ * All copy comes from props. No copy is invented inside this block.
+ * Uses token-bound Tailwind classes only (no arbitrary values, no hardcoded hex).
+ */
+
+interface Cta {
+  label: string;
+  href: string;
+  trackingId?: string;
+}
+
+interface TrustBar {
+  label?: string;
+  items: string[]; // logo URLs OR metric strings
+  itemType?: 'logo' | 'metric';
+}
+
+interface Props {
+  variant?: 'centered' | 'split' | 'asymmetric';
+  headline: string;
+  subheadline?: string;
+  primaryCta: Cta;
+  secondaryCta?: Cta;
+  image?: { src: string; alt: string };
+  trustBar?: TrustBar;
+}
+
+const {
+  variant = 'centered',
+  headline,
+  subheadline,
+  primaryCta,
+  secondaryCta,
+  image,
+  trustBar,
+} = Astro.props as Props;
+---
+
+<section class="relative w-full">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 lg:py-32">
+    {variant === 'centered' && (
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight text-neutral-900">
+          {headline}
+        </h1>
+        {subheadline && (
+          <p class="mt-6 text-lg lg:text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+            {subheadline}
+          </p>
+        )}
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href={primaryCta.href}
+            data-tracking-id={primaryCta.trackingId}
+            class="inline-flex items-center justify-center rounded-lg bg-brand-600 hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 px-8 py-4 text-base font-semibold text-white transition-colors"
+          >
+            {primaryCta.label}
+          </a>
+          {secondaryCta && (
+            <a
+              href={secondaryCta.href}
+              data-tracking-id={secondaryCta.trackingId}
+              class="inline-flex items-center justify-center rounded-lg border border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50 px-8 py-4 text-base font-semibold text-neutral-700 transition-colors"
+            >
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+        {image && (
+          <div class="mt-16">
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full rounded-2xl shadow-xl"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        )}
+      </div>
+    )}
+
+    {variant === 'split' && (
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <h1 class="text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900">
+            {headline}
+          </h1>
+          {subheadline && (
+            <p class="mt-6 text-lg lg:text-xl text-neutral-600 leading-relaxed">
+              {subheadline}
+            </p>
+          )}
+          <div class="mt-10 flex flex-col sm:flex-row gap-4">
+            <a
+              href={primaryCta.href}
+              data-tracking-id={primaryCta.trackingId}
+              class="inline-flex items-center justify-center rounded-lg bg-brand-600 hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 px-8 py-4 text-base font-semibold text-white transition-colors"
+            >
+              {primaryCta.label}
+            </a>
+            {secondaryCta && (
+              <a
+                href={secondaryCta.href}
+                data-tracking-id={secondaryCta.trackingId}
+                class="inline-flex items-center justify-center rounded-lg border border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50 px-8 py-4 text-base font-semibold text-neutral-700 transition-colors"
+              >
+                {secondaryCta.label}
+              </a>
+            )}
+          </div>
+        </div>
+        {image && (
+          <div>
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full rounded-2xl shadow-xl"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        )}
+      </div>
+    )}
+
+    {variant === 'asymmetric' && (
+      <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+        <div class="lg:col-span-3">
+          <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight text-neutral-900">
+            {headline}
+          </h1>
+          {subheadline && (
+            <p class="mt-6 text-lg lg:text-xl text-neutral-600 leading-relaxed max-w-xl">
+              {subheadline}
+            </p>
+          )}
+          <div class="mt-10 flex flex-col sm:flex-row gap-4">
+            <a
+              href={primaryCta.href}
+              data-tracking-id={primaryCta.trackingId}
+              class="inline-flex items-center justify-center rounded-lg bg-brand-600 hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 px-8 py-4 text-base font-semibold text-white transition-colors"
+            >
+              {primaryCta.label}
+            </a>
+            {secondaryCta && (
+              <a
+                href={secondaryCta.href}
+                data-tracking-id={secondaryCta.trackingId}
+                class="inline-flex items-center justify-center rounded-lg border border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50 px-8 py-4 text-base font-semibold text-neutral-700 transition-colors"
+              >
+                {secondaryCta.label}
+              </a>
+            )}
+          </div>
+        </div>
+        {image && (
+          <div class="lg:col-span-2 relative">
+            <div class="absolute -inset-6 bg-brand-100 rounded-3xl -z-10"></div>
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="relative w-full rounded-2xl shadow-xl"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        )}
+      </div>
+    )}
+
+    {trustBar && trustBar.items.length > 0 && (
+      <div class="mt-16 pt-10 border-t border-neutral-200">
+        {trustBar.label && (
+          <p class="text-sm font-medium text-neutral-500 text-center mb-6">
+            {trustBar.label}
+          </p>
+        )}
+        <div class={`flex flex-wrap items-center justify-center gap-x-12 gap-y-6 ${trustBar.itemType === 'metric' ? 'lg:gap-x-16' : ''}`}>
+          {trustBar.itemType === 'logo' || (!trustBar.itemType && trustBar.items[0]?.startsWith('http'))
+            ? trustBar.items.map((src) => (
+                <img src={src} alt="" class="h-8 lg:h-10 opacity-70 hover:opacity-100 transition-opacity" loading="lazy" />
+              ))
+            : trustBar.items.map((metric) => (
+                <p class="text-base lg:text-lg font-semibold text-neutral-700">{metric}</p>
+              ))
+          }
+        </div>
+      </div>
+    )}
+  </div>
+</section>

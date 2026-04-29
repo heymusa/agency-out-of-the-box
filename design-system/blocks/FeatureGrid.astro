@@ -1,0 +1,112 @@
+---
+/**
+ * FeatureGrid — three variants
+ * - cards-3up: 3 cards in a row with icon + heading + body
+ * - alternating: alternating left-right rows; image one side, content other
+ * - icon-row: 4-up dense grid of icon + heading + body
+ *
+ * Every feature must reference a concrete deliverable / number / artifact (FAB format in body).
+ */
+
+interface Feature {
+  icon?: string;     // lucide icon name
+  heading: string;
+  body: string;
+  href?: string;
+  image?: { src: string; alt: string };
+}
+
+interface Props {
+  variant: 'cards-3up' | 'alternating' | 'icon-row';
+  heading: string;
+  subheading?: string;
+  features: Feature[];
+}
+
+const { variant, heading, subheading, features } = Astro.props as Props;
+---
+
+<section class="w-full">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 lg:py-32">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900">
+        {heading}
+      </h2>
+      {subheading && (
+        <p class="mt-6 text-lg text-neutral-600 leading-relaxed">{subheading}</p>
+      )}
+    </div>
+
+    {variant === 'cards-3up' && (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature) => (
+          <article class="rounded-xl border border-neutral-200 bg-white p-8 hover:border-neutral-300 transition-colors">
+            {feature.icon && (
+              <div class="w-12 h-12 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-6">
+                <span class="text-xl">{feature.icon}</span>
+              </div>
+            )}
+            <h3 class="text-xl font-bold text-neutral-900">{feature.heading}</h3>
+            <p class="mt-3 text-base text-neutral-600 leading-relaxed">{feature.body}</p>
+            {feature.href && (
+              <a href={feature.href} class="mt-4 inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700">
+                Learn more →
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+
+    {variant === 'alternating' && (
+      <div class="space-y-24">
+        {features.map((feature, idx) => (
+          <div class={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${idx % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
+            {feature.image && (
+              <div>
+                <img
+                  src={feature.image.src}
+                  alt={feature.image.alt}
+                  class="w-full rounded-2xl shadow-md"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div>
+              {feature.icon && (
+                <div class="w-12 h-12 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-6">
+                  <span class="text-xl">{feature.icon}</span>
+                </div>
+              )}
+              <h3 class="text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight">
+                {feature.heading}
+              </h3>
+              <p class="mt-4 text-lg text-neutral-600 leading-relaxed">{feature.body}</p>
+              {feature.href && (
+                <a href={feature.href} class="mt-6 inline-flex items-center text-base font-semibold text-brand-600 hover:text-brand-700">
+                  Learn more →
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {variant === 'icon-row' && (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {features.map((feature) => (
+          <div>
+            {feature.icon && (
+              <div class="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-4">
+                <span class="text-base">{feature.icon}</span>
+              </div>
+            )}
+            <h3 class="text-base font-bold text-neutral-900">{feature.heading}</h3>
+            <p class="mt-2 text-sm text-neutral-600 leading-relaxed">{feature.body}</p>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
