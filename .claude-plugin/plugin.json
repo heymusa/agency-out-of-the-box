@@ -1,0 +1,28 @@
+{
+  "name": "agency-out-of-the-box",
+  "description": "Claude-native toolkit for running a service-business agency end-to-end. Six commands, eleven skills, five specialist agents, four industry overlays, anti-AI-slop QA gate.",
+  "version": "0.1.0",
+  "author": {
+    "name": "heymusa",
+    "email": "mussayyab201@gmail.com",
+    "url": "https://github.com/heymusa"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/heymusa/agency-out-of-the-box",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heymusa/agency-out-of-the-box"
+  },
+  "keywords": [
+    "agency",
+    "service-business",
+    "landing-page",
+    "funnel",
+    "conversion",
+    "storybrand",
+    "hormozi",
+    "astro",
+    "nextjs",
+    "skills"
+  ]
+}

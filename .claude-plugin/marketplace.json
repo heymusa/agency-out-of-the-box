@@ -1,64 +1,35 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "agency-out-of-the-box",
-  "displayName": "Agency-Out-of-the-Box",
-  "description": "Claude-native toolkit to run a service-business agency end-to-end: pick a niche, stand up the agency site, generate landing pages and funnels, deliver client sites, ship them. Without AI slop.",
-  "version": "0.1.0",
   "owner": {
     "name": "heymusa",
     "email": "mussayyab201@gmail.com",
     "url": "https://github.com/heymusa"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heymusa/agency-out-of-the-box"
+  "metadata": {
+    "description": "Claude-native toolkit to run a service-business agency end-to-end: pick a niche, stand up the agency site, generate landing pages and funnels, deliver client sites, ship them. Without AI slop.",
+    "version": "0.1.0",
+    "repository": "https://github.com/heymusa/agency-out-of-the-box"
   },
-  "keywords": [
-    "agency",
-    "service-business",
-    "landing-page",
-    "funnel",
-    "conversion",
-    "storybrand",
-    "hormozi",
-    "astro",
-    "nextjs",
-    "skills"
-  ],
   "plugins": [
     {
       "name": "agency-out-of-the-box",
-      "source": ".",
-      "displayName": "Agency-Out-of-the-Box",
-      "description": "End-to-end agency operations toolkit. 6 commands, 5 specialist agents, 11 skills.",
-      "version": "0.1.0",
+      "description": "End-to-end service-agency toolkit. Six commands, eleven skills, five specialist agents, four industry overlays, anti-AI-slop QA gate that blocks deploys with lorem ipsum, fabricated testimonials, or buzzword headlines.",
+      "source": "./",
+      "strict": false,
+      "category": "productivity",
       "skills": [
-        "agency-context",
-        "niche-research",
-        "offer-design",
-        "storybrand-page",
-        "landing-page-funnel",
-        "seo-page",
-        "design-system",
-        "component-library",
-        "copy-frameworks",
-        "analytics-wiring",
-        "ship-checklist"
-      ],
-      "agents": [
-        "industry-strategist",
-        "conversion-copywriter",
-        "design-builder",
-        "seo-strategist",
-        "qa-reviewer"
-      ],
-      "commands": [
-        "pick-niche",
-        "build-agency-site",
-        "new-landing-page",
-        "new-funnel",
-        "new-client-site",
-        "ship-it"
+        "./skills/agency-context",
+        "./skills/niche-research",
+        "./skills/offer-design",
+        "./skills/storybrand-page",
+        "./skills/landing-page-funnel",
+        "./skills/seo-page",
+        "./skills/design-system",
+        "./skills/component-library",
+        "./skills/copy-frameworks",
+        "./skills/analytics-wiring",
+        "./skills/ship-checklist"
       ]
     }
   ]
