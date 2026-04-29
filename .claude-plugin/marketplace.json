@@ -28,6 +28,7 @@
   "plugins": [
     {
       "name": "agency-out-of-the-box",
+      "source": ".",
       "displayName": "Agency-Out-of-the-Box",
       "description": "End-to-end agency operations toolkit. 6 commands, 5 specialist agents, 11 skills.",
       "version": "0.1.0",
